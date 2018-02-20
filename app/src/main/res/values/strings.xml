@@ -3,4 +3,11 @@
     <string name="sort_top_rated">Top Rated</string>
     <string name="sort_popular">Popular</string>
     <string name="error_api_not_provided">API not provided. Movies cannot be loaded</string>
+
+    <string name="movie_title_label">Titolo</string>
+    <string name="movie_release_date_label">Data rilascio</string>
+    <string name="movie_vote_average_label">Vote average</string>
+    <string name="movie_overview_label">Overview</string>
+
+    <string name="api_key"></string>
 </resources>

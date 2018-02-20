@@ -1,6 +1,7 @@
 package com.udacity.popularmovies1.popularmovies_stage1.retrofit;
 
 import com.udacity.popularmovies1.popularmovies_stage1.model.ApiModel;
+import com.udacity.popularmovies1.popularmovies_stage1.model.Movie;
 
 import java.util.List;
 
@@ -18,4 +19,7 @@ public interface RetrofitApiInterface {
 
     @GET("movie/popular")
     Call<ApiModel> popularsList(@Query("api_key") String apiKey);
+
+    @GET("movie/{id}")
+    Call<Movie> movie(@Query("api_key") String apiKey, String id);
 }

@@ -1,5 +1,8 @@
 package com.udacity.popularmovies1.popularmovies_stage1.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -9,7 +12,7 @@ import java.util.List;
  * Created by federico.creti on 16/02/2018.
  */
 
-public class Movie {
+public class Movie implements Parcelable {
     @SerializedName("vote_count")
     private int voteCount;
     @SerializedName("id")
@@ -38,6 +41,10 @@ public class Movie {
     private String overview;
     @SerializedName("release_date")
     private String releaseDate;
+
+    public final static String CLASS_STRING_EXTRA = "MOVIE";
+
+    public Movie(){}
 
     public void setVoteCount(int voteCount){
         this.voteCount = voteCount;
@@ -136,5 +143,42 @@ public class Movie {
     public String getReleaseDate(){
         return releaseDate;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeFloat(this.voteAverage);
+        dest.writeString(this.title);
+        dest.writeString(this.backdropPath);
+        dest.writeString(this.overview);
+        dest.writeString(this.releaseDate);
+    }
+
+    protected Movie(Parcel in) {
+        this.id = in.readLong();
+        this.voteAverage = in.readFloat();
+        this.title = in.readString();
+        this.backdropPath = in.readString();
+        this.overview = in.readString();
+        this.releaseDate = in.readString();
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }
 

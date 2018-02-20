@@ -1,9 +1,12 @@
 package com.udacity.popularmovies1.popularmovies_stage1;
 
+import android.content.Intent;
+import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +32,9 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.ListItemClickListener {
 
-    private final String API_KEY = "";
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private String API_KEY = "";
 
     private final int NUMBER_OF_COLUMNS = 2;
 
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
         loader = (ProgressBar) findViewById(R.id.loader_pb);
         moviesContainer = (RecyclerView) findViewById(R.id.movies_gv);
         errorMissingApi = (TextView) findViewById(R.id.error_message);
+
+        API_KEY = getResources().getString(R.string.api_key);
 
         if(API_KEY != null && API_KEY != "") {
 
@@ -102,20 +109,27 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
     Using Retrofit enqueue method retrieve the movies list automatically on a background thread
      */
     private void retrieveMovies(){
-        callMovies.enqueue(new Callback<ApiModel>() {
-            @Override
-            public void onResponse(Call<ApiModel> call, Response<ApiModel> response) {
-                moviesList = response.body().getResults();
-                setShowLoader(false);
-                //Set the retrieve list of movies into the adapter of GridView
-                movieAdapter.swapMoviesList(moviesList);
-            }
+        try {
+            callMovies.enqueue(new Callback<ApiModel>() {
+                @Override
+                public void onResponse(Call<ApiModel> call, Response<ApiModel> response) {
+                    moviesList = response.body().getResults();
+                    setShowLoader(false);
+                    //Set the retrieve list of movies into the adapter of GridView
+                    movieAdapter.swapMoviesList(moviesList);
+                }
 
-            @Override
-            public void onFailure(Call<ApiModel> call, Throwable t) {
-                //TODO: manage errors
-            }
-        });
+                @Override
+                public void onFailure(Call<ApiModel> call, Throwable t) {
+                    //TODO: manage errors
+                }
+            });
+        }
+        catch (Exception ex){
+            String errorMessage = "Unexpected error: " + ex.getMessage();
+            Log.d(TAG, errorMessage);
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+        }
     }
 
     private void showErrorMessage(){
@@ -171,6 +185,14 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
 
     @Override
     public void onListItemClick(int positionClicked) {
-        Toast.makeText(this, moviesList.get(positionClicked).getTitle(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, moviesList.get(positionClicked).getTitle(), Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+
+        Movie movie = moviesList.get(positionClicked);
+        Bundle b = new Bundle();
+        b.putParcelable(Movie.CLASS_STRING_EXTRA, movie);
+        intent.putExtras(b);
+
+        startActivity(intent);
     }
 }
