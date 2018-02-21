@@ -24,20 +24,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
+        //Retrieve the UI components
         poster = findViewById(R.id.movie_poster);
         movieTitle = findViewById(R.id.movie_title);
         movieReleaseDate = findViewById(R.id.movie_release_date);
         movieVoteAverage = findViewById(R.id.movie_vote_average);
         movieOverview = findViewById(R.id.movie_overview);
 
-        Bundle b = getIntent().getExtras();
-        if (b != null) {
-            Movie movie = (Movie)b.getParcelable(Movie.CLASS_STRING_EXTRA);
-            Toast.makeText(this, movie.getTitle(), Toast.LENGTH_LONG).show();
+        //Retrieve the bundle
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            //Extract the parced movie from bundle
+            Movie movie = bundle.getParcelable(Movie.CLASS_STRING_EXTRA);
 
+            //Load backdrop poster
             String imageUrl = URL_BASE_MOVIE_BANNER + movie.getBackdropPath();
             Picasso.with(this).load(imageUrl).into(poster);
 
+            //Load all information on UI components
             movieTitle.setText(movie.getTitle());
             movieReleaseDate.setText(movie.getReleaseDate());
             movieVoteAverage.setText(String.valueOf(movie.getVoteAverage()));

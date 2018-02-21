@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
         moviesContainer = (RecyclerView) findViewById(R.id.movies_gv);
         errorMissingApi = (TextView) findViewById(R.id.error_message);
 
-        API_KEY = getResources().getString(R.string.api_key);
-
         if(API_KEY != null && API_KEY != "") {
 
             //Create and the layout manager of the recycler view
@@ -103,8 +101,6 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
         retrieveMovies();
     }
 
-
-
     /*
     Using Retrofit enqueue method retrieve the movies list automatically on a background thread
      */
@@ -121,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
 
                 @Override
                 public void onFailure(Call<ApiModel> call, Throwable t) {
-                    //TODO: manage errors
+
                 }
             });
         }
@@ -185,9 +181,10 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
 
     @Override
     public void onListItemClick(int positionClicked) {
-        //Toast.makeText(this, moviesList.get(positionClicked).getTitle(), Toast.LENGTH_LONG).show();
+        //Create the intent for open new activity
         Intent intent = new Intent(this, MovieDetailsActivity.class);
 
+        //Parse the selected movie and parce it into the bundle which is passed to details activity
         Movie movie = moviesList.get(positionClicked);
         Bundle b = new Bundle();
         b.putParcelable(Movie.CLASS_STRING_EXTRA, movie);
