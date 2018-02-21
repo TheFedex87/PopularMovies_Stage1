@@ -19,7 +19,4 @@ public interface RetrofitApiInterface {
 
     @GET("movie/popular")
     Call<ApiModel> popularsList(@Query("api_key") String apiKey);
-
-    @GET("movie/{id}")
-    Call<Movie> movie(@Query("api_key") String apiKey, String id);
 }
