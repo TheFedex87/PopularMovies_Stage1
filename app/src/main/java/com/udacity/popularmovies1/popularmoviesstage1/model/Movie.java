@@ -1,4 +1,4 @@
-package com.udacity.popularmovies1.popularmovies_stage1.model;
+package com.udacity.popularmovies1.popularmoviesstage1.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

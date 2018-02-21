@@ -1,8 +1,5 @@
-package com.udacity.popularmovies1.popularmovies_stage1.retrofit;
+package com.udacity.popularmovies1.popularmoviesstage1.retrofit;
 
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

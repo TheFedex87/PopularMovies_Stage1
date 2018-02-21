@@ -1,7 +1,6 @@
-package com.udacity.popularmovies1.popularmovies_stage1;
+package com.udacity.popularmovies1.popularmoviesstage1;
 
 import android.content.Intent;
-import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,16 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.udacity.popularmovies1.popularmovies_stage1.model.ApiModel;
-import com.udacity.popularmovies1.popularmovies_stage1.model.Movie;
-import com.udacity.popularmovies1.popularmovies_stage1.retrofit.RetrofitApiInterface;
-import com.udacity.popularmovies1.popularmovies_stage1.retrofit.RetrofitServices;
+import com.udacity.popularmovies1.popularmoviesstage1.model.ApiModel;
+import com.udacity.popularmovies1.popularmoviesstage1.model.Movie;
+import com.udacity.popularmovies1.popularmoviesstage1.retrofit.RetrofitApiInterface;
+import com.udacity.popularmovies1.popularmoviesstage1.retrofit.RetrofitServices;
 
 import java.util.List;
 

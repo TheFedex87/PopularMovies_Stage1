@@ -1,9 +1,6 @@
-package com.udacity.popularmovies1.popularmovies_stage1.retrofit;
+package com.udacity.popularmovies1.popularmoviesstage1.retrofit;
 
-import com.udacity.popularmovies1.popularmovies_stage1.model.ApiModel;
-import com.udacity.popularmovies1.popularmovies_stage1.model.Movie;
-
-import java.util.List;
+import com.udacity.popularmovies1.popularmoviesstage1.model.ApiModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

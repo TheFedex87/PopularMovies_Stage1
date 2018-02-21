@@ -1,15 +1,13 @@
-package com.udacity.popularmovies1.popularmovies_stage1;
+package com.udacity.popularmovies1.popularmoviesstage1;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.udacity.popularmovies1.popularmovies_stage1.model.Movie;
+import com.udacity.popularmovies1.popularmoviesstage1.model.Movie;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     private final String URL_BASE_MOVIE_BANNER = "http://image.tmdb.org/t/p/w185";

@@ -1,4 +1,4 @@
-package com.udacity.popularmovies1.popularmovies_stage1;
+package com.udacity.popularmovies1.popularmoviesstage1;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.udacity.popularmovies1.popularmovies_stage1.model.Movie;
+import com.udacity.popularmovies1.popularmoviesstage1.model.Movie;
 
 import java.util.List;
 
