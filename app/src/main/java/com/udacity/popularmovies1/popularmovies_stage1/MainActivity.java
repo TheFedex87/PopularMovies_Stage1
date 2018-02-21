@@ -56,11 +56,14 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
         setContentView(R.layout.activity_main);
 
         //Retrieve the views
-        loader = (ProgressBar) findViewById(R.id.loader_pb);
-        moviesContainer = (RecyclerView) findViewById(R.id.movies_gv);
-        errorMissingApi = (TextView) findViewById(R.id.error_message);
+        loader = findViewById(R.id.loader_pb);
+        moviesContainer = findViewById(R.id.movies_gv);
+        errorMissingApi = findViewById(R.id.error_message);
 
-        if(API_KEY != null && API_KEY != "") {
+        //Load API KEY from resources
+        API_KEY = getResources().getString(R.string.api_key);
+
+        if(!API_KEY.isEmpty()) {
 
             //Create and the layout manager of the recycler view
             GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, NUMBER_OF_COLUMNS);
@@ -109,10 +112,22 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
             callMovies.enqueue(new Callback<ApiModel>() {
                 @Override
                 public void onResponse(Call<ApiModel> call, Response<ApiModel> response) {
-                    moviesList = response.body().getResults();
-                    setShowLoader(false);
-                    //Set the retrieve list of movies into the adapter of GridView
-                    movieAdapter.swapMoviesList(moviesList);
+                    try {
+                        if (response.errorBody() != null){
+                            String err = "Response error";
+                            Log.d(TAG, err);
+                            Toast.makeText(MainActivity.this, err, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        moviesList = response.body().getResults();
+                        setShowLoader(false);
+                        //Set the retrieve list of movies into the adapter of GridView
+                        movieAdapter.swapMoviesList(moviesList);
+                    } catch (Exception ex){
+                        Log.d(TAG, ex.getMessage());
+                        Toast.makeText(MainActivity.this, "Unexpected message: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 }
 
                 @Override
@@ -155,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
         MenuItem item = menu.findItem(R.id.spinner);
         Spinner spinner = (Spinner) item.getActionView();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, getResources().getStringArray(R.array.spinner_movie_sort));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, getResources().getStringArray(R.array.spinner_movie_sort));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
